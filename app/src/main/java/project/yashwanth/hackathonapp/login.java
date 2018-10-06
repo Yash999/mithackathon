@@ -72,7 +72,7 @@ public class login extends AppCompatActivity {
             // The Task returned from this call is always completed, no need to attach
             // a listener.
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            //Toast.makeText(mContext,"data "+task.toString(),Toast.LENGTH_LONG).show();
+
             validate(task);
         }
     }
