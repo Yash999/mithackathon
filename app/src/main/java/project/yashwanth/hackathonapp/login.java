@@ -16,6 +16,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.RemoteMessage;
 
 public class login extends AppCompatActivity {
 
@@ -30,6 +32,14 @@ public class login extends AppCompatActivity {
         mContext = this;
         SignInButton signInButton = findViewById(R.id.sign_in_button);
         signInButton.setSize(SignInButton.SIZE_STANDARD);
+
+
+        FirebaseMessaging fm=FirebaseMessaging.getInstance();
+        fm.send(new RemoteMessage.Builder(NetworkConstants.SENDER_ID+"@gcm.googleapis.com")
+        .setMessageId(Integer.toString(1))
+                .addData("my_message", "Hello World")
+                .addData("my_action","SAY_HELLO")
+                .build());
 
 
 

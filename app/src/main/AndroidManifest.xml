@@ -3,11 +3,11 @@
     package="project.yashwanth.hackathonapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
-    <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission. ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -37,7 +37,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".login" />
-        <activity android:name=".location"></activity>
+        <activity android:name=".location" />
+        <activity android:name=".timeline"></activity>
     </application>
 
 </manifest>

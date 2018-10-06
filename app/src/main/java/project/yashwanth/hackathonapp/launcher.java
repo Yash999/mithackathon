@@ -20,7 +20,7 @@ public class launcher extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(getApplicationContext(),login.class));
+                startActivity(new Intent(getApplicationContext(),timeline.class));
             }
         },3000);
     }
