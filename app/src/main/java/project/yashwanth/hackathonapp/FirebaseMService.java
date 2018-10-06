@@ -21,19 +21,17 @@ public class FirebaseMService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
-        Log.d(TAG, "Notification Message TITLE: " + remoteMessage.getNotification().getTitle());
-        Log.d(TAG, "Notification Message BODY: " + remoteMessage.getNotification().getBody());
-        Log.d(TAG, "Notification Message DATA: " + remoteMessage.getData().toString());
-    }
+        //Log.d(TAG, "Notification Message TITLE: " + remoteMessage.getNotification().getTitle());
+        //Log.d(TAG, "Notification Message BODY: " + remoteMessage.getNotification().getBody());
+        //Log.d(TAG, "Notification Message DATA: " + remoteMessage.getData().toString());
 
-    private void sendNotification(String messageTitle, String messageBody, Map<String, String> row) {
         PendingIntent contentIntent = null;
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.bell))
                 .setSmallIcon(R.drawable.bell)
-                .setContentTitle(messageTitle)
-                .setContentText(messageBody)
+                .setContentTitle(remoteMessage.getNotification().getTitle())
+                .setContentText(remoteMessage.getNotification().getBody())
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
                 .setContentIntent(contentIntent);
@@ -41,6 +39,5 @@ public class FirebaseMService extends FirebaseMessagingService {
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(count, notificationBuilder.build());
         count++;
-        //test
     }
 }
