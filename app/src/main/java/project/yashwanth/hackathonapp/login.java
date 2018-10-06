@@ -50,7 +50,7 @@ public class login extends AppCompatActivity {
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if (account!=null){
             Toast.makeText(this,"Already logged in",Toast.LENGTH_LONG).show();
-            startActivity(new Intent(getApplicationContext(),location.class));
+            startActivity(new Intent(getApplicationContext(),Menu.class));
         }
 
         signInButton.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +72,7 @@ public class login extends AppCompatActivity {
             // The Task returned from this call is always completed, no need to attach
             // a listener.
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            Toast.makeText(mContext,"data",Toast.LENGTH_LONG).show();
+            //Toast.makeText(mContext,"data "+task.toString(),Toast.LENGTH_LONG).show();
             validate(task);
         }
     }
@@ -82,7 +82,7 @@ public class login extends AppCompatActivity {
 
             // Signed in successfully, show authenticated UI.
             Toast.makeText(mContext,"Signed in successfully",Toast.LENGTH_LONG).show();
-            startActivity(new Intent(getApplicationContext(),location.class));
+            startActivity(new Intent(getApplicationContext(),Menu.class));
 
         } catch (ApiException e) {
 

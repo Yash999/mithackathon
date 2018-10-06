@@ -14,6 +14,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +27,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -33,17 +38,32 @@ public class location extends AppCompatActivity {
     private LocationManager mLocationManager;
     private LocationListener mLocationListener;
     private FusedLocationProviderClient mFusedLocationProviderClient;
+    private RadioGroup radioGroup;
+    private RadioButton r1,r2,r3;
     Context mContext;
     double lon, lat;
     TextView tvloc;
     String adr;
     Button btn;
+    String level="low";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
-        mContext=this;
-        tvloc=(TextView)findViewById(R.id.tv_address);
+        mContext = this;
+        tvloc = (TextView) findViewById(R.id.tv_address);
+        radioGroup = (RadioGroup) findViewById(R.id.myRadioGroup);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                if(i==R.id.rhigh)
+                    level="High";
+                else if(i==R.id.rmedium)
+                    level="Medium";
+                else if(i==R.id.rlow)
+                    level="Low";
+            }
+        });
         mLocationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(mContext);
         mLocationListener = new LocationListener() {
@@ -53,7 +73,7 @@ public class location extends AppCompatActivity {
                     //Toast.makeText(mContext, "Location: " + location.toString(), Toast.LENGTH_LONG).show();
                     lon = location.getLongitude();
                     lat = location.getLatitude();
-                    Toast.makeText(mContext, "Got the location "+lon+", "+lat, Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, "Got the location " + lon + ", " + lat, Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
                     //Toast.makeText(mContext, "Exception: " + e.toString(), Toast.LENGTH_LONG).show();
                 }
@@ -87,8 +107,8 @@ public class location extends AppCompatActivity {
 
                         lon = location.getLongitude();
                         lat = location.getLatitude();
-                        Toast.makeText(mContext, "Got the location "+lon+", "+lat, Toast.LENGTH_LONG).show();
-                        getAddress(lat,lon);
+                        Toast.makeText(mContext, "Got the location " + lon + ", " + lat, Toast.LENGTH_LONG).show();
+                        getAddress(lat, lon);
                     }
                 });
 
@@ -101,13 +121,13 @@ public class location extends AppCompatActivity {
 
                         lon = location.getLongitude();
                         lat = location.getLatitude();
-                        Toast.makeText(mContext, "Got the location "+lon+", "+lat, Toast.LENGTH_LONG).show();
-                        getAddress(lat,lon);
+                        Toast.makeText(mContext, "Got the location " + lon + ", " + lat, Toast.LENGTH_LONG).show();
+                        getAddress(lat, lon);
                     }
                 });
             }
 
-        } catch(Exception e) {
+        } catch (Exception e) {
             Toast.makeText(mContext, "Exception: " + e.toString(), Toast.LENGTH_LONG).show();
         }
 
@@ -128,9 +148,9 @@ public class location extends AppCompatActivity {
             add = add + "\n" + obj.getSubThoroughfare();
 
             Log.v("IGA", "Address" + add);
-            Toast.makeText(mContext, "Got the location "+add, Toast.LENGTH_LONG).show();
-            tvloc.setText("Location: "+add.toString());
-            adr=add.toString();
+            Toast.makeText(mContext, "Got the location " + add, Toast.LENGTH_LONG).show();
+            tvloc.setText("Location: " + add.toString());
+            adr = add.toString();
             // Toast.makeText(this, "Address=>" + add,
             // Toast.LENGTH_SHORT).show();
 
@@ -143,6 +163,25 @@ public class location extends AppCompatActivity {
     }
 
     public void sendBroadcast(View view) {
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("USER_POSTS");
+        try {
+
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("LocationUpdate");
+            String postID = databaseReference.push().getKey();
+            String time = "" + (DateFormat.getTimeInstance().format(new Date()));
+            String date = "" + (DateFormat.getDateInstance().format(new Date()));
+            EditText v = (EditText) findViewById(R.id.ed_nov);
+            String info[] = {
+                    "" + postID,
+                    "" + (time + "--" + date),
+                    "" + adr,
+                    "" + level,
+                    "" + Integer.parseInt(v.getText().toString())
+            };
+            locationTemplate mLocationTemplate = new locationTemplate(info);
+            databaseReference.child(postID).setValue(mLocationTemplate);
+        }
+        catch (Exception e){
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 }
