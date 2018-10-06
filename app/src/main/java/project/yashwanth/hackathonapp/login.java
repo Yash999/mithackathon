@@ -80,7 +80,6 @@ public class login extends AppCompatActivity {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
-            // Signed in successfully, show authenticated UI.
             Toast.makeText(mContext,"Signed in successfully",Toast.LENGTH_LONG).show();
             startActivity(new Intent(getApplicationContext(),Menu.class));
 
