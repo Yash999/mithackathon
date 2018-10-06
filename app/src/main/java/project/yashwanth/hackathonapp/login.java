@@ -48,8 +48,11 @@ public class login extends AppCompatActivity {
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this,gso);
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        if (account!=null)
+        if (account!=null){
             Toast.makeText(this,"Already logged in",Toast.LENGTH_LONG).show();
+            startActivity(new Intent(getApplicationContext(),location.class));
+        }
+
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

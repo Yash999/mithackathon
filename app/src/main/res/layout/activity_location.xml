@@ -7,4 +7,67 @@
     android:orientation="vertical"
     tools:context=".location">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:gravity="center"
+        android:padding="20dp"
+        android:text="Broadcast"
+        android:textColor="#fff"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tv_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#f2e9e4"
+        android:padding="10dp"
+        android:textSize="17sp" />
+
+    <RadioGroup
+        android:id="@+id/myRadioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rgroup"
+        android:layout_margin="10dp"
+        android:checkedButton="@+id/sound"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rhigh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="High" />
+
+        <RadioButton
+            android:id="@+id/rmedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Medium" />
+
+        <RadioButton
+            android:id="@+id/rlow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Low" />
+
+    </RadioGroup>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:id="@+id/ed_nov"
+        android:hint="Aprox no vehicles"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="#22223b"
+        android:text="Send"
+        android:onClick="sendBroadcast"
+        android:textColor="#fff"
+        android:textSize="16sp" />
 </LinearLayout>

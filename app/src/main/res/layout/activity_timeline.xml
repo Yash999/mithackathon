@@ -7,6 +7,17 @@
     android:orientation="vertical"
     tools:context=".timeline">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Timeline"
+        android:padding="20dp"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:textColor="#fff"
+        android:background="@color/colorPrimaryDark"
+        />
+
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:id="@+id/rv_timeline"

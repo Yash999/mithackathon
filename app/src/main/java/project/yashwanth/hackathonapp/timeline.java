@@ -30,10 +30,10 @@ public class timeline extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
         datatoinsert.clear();
         timelinedataset t=new timelinedataset();
-        t.date="12-10-2018";
-        t.details="place";
-        t.level="medium";
-        t.vnumber="aprox 70";
+        t.date="Time: 07AM -- 12-10-2018";
+        t.details="Details: place";
+        t.level="Level: medium";
+        t.vnumber="Number of vehicle: aprox 70";
         datatoinsert.add(t);
         mTimelineRecyclerViewAdapter.notifyDataSetChanged();
     }
